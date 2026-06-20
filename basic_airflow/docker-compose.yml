@@ -1,0 +1,25 @@
+services:
+  airflow:
+    build: .
+
+    container_name: airflow
+
+    ports:
+      - "8080:8080"
+
+    command: standalone
+
+    environment:
+      AIRFLOW_CORE_LOAD_EXAMPLES: "False"
+      AIRFLOW__WEBSERVER__BASE_URL: "https://expert-spoon-5g7459pp5j7phv7pq-8080.app.github.dev"
+      AIRFLOW__API__BASE_URL: "https://expert-spoon-5g7459pp5j7phv7pq-8080.app.github.dev"
+      AIRFLOW__WEBSERVER__ENABLE_PROXY_FIX: "True"
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: "admin:admin"
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "True"
+
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./data:/opt/airflow/data
+      - ./output:/opt/airflow/output
